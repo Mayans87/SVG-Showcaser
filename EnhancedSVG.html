@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enhanced SVG</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/438b90934c.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div
+      class="shape"
+      style="
+        cursor: default;
+        display: flex;
+        justify-content: center;
+        color: white;
+        font-weight: bolder;
+        margin-top: 10px;
+        font-size: x-large;
+      "
+    >
+      <input type="radio" name="f" id="rect" onclick="getSelectedId()" />
+      Rectangle
+      <input type="radio" name="f" id="ellipse" onclick="getSelectedId()" />
+      Ellipse<input
+        type="radio"
+        id="circle"
+        name="f"
+        onclick="getSelectedId()"
+      />
+      Circle<input
+        type="radio"
+        id="triangle"
+        name="f"
+        onclick="getSelectedId()"
+      />
+      Triangle
+    </div>
+
+    <div
+      class="main"
+      style="display: flex; flex-direction: row; justify-content: center"
+    >
+      <button id="showButton" onclick="show()">Show</button>
+      <div class="form1 draggable" id="form1" style="position: relative">
+        <div
+          class="header"
+          style="display: flex; justify-content: space-between"
+        >
+          <span class="ham"><i class="fa-solid fa-bars"></i></span>
+          <span class="Title" id="header">Details Form</span>
+          <span class="closure" style="cursor: default"
+            ><i class="fa-solid fa-rectangle-xmark" onclick="boom()"></i
+          ></span>
+        </div>
+        <div class="details" style="display: flex; flex-direction: column">
+          <div
+            class="rect-details"
+            id="rect-details"
+            style="visibility: hidden; display: flex; flex-direction: column"
+          >
+            <label for="rectangle"
+              >Enter height of rectangle:<input
+                type="number"
+                id="height"
+                style="margin-left: 5px"
+            /></label>
+            <label for="rectangle"
+              >Enter width of rectangle:<input
+                style="margin-left: 10px"
+                type="number"
+                id="width"
+            /></label>
+          </div>
+        </div>
+        <div
+          class="square-details"
+          id="square-details"
+          style="visibility: hidden"
+        >
+          <label for="square" style="color: white"
+            >Enter dimensions for ellipse:
+            <input type="number" id="cy" />
+          </label>
+        </div>
+        <div
+          class="triangle-details"
+          id="triangle-details"
+          style="visibility: hidden"
+        >
+          <label for="triangle">
+            Enter cx(50,10 10,90 90,90): <input type="text" id="cx"
+          /></label>
+        </div>
+        <div
+          class="circle-details"
+          id="circle-details"
+          style="visibility: hidden"
+        >
+          <label for="circle">
+            Enter Radius of circle:
+            <input type="number" id="radius" />
+          </label>
+        </div>
+        <label for="blink">
+          Do you want to apply blink?
+          <input type="radio" name="k" value="true" onclick="getValue()" />Yes
+          <input type="radio" name="k" value="false" onclick="getValue()" />No
+        </label>
+        <div style="display: flex; justify-content: center">
+          <button id="applyButton" onclick="toggler()">Apply</button>
+        </div>
+      </div>
+      <button id="showButton2" onclick="show2()">Show</button>
+      <div class="form2" id="form2">
+        <div class="header">
+          <span class="ham"><i class="fa-solid fa-bars"></i></span>
+          <span class="Title">Live Preview</span>
+          <span class="closure" style="cursor: default"
+            ><i class="fa-solid fa-rectangle-xmark" onclick="boom2()"></i
+          ></span>
+        </div>
+        <!-- SVG shapes -->
+        <div class="shape-container draggable" style="display: none" id="rect2">
+          <svg id="rect" width="550" height="500" draggable="true">
+            <rect
+              class="blinking-text"
+              id="shapeR"
+              x="10"
+              y="10"
+              width="80"
+              height="60"
+              fill="blue"
+              stroke="black"
+            />
+          </svg>
+        </div>
+        <div
+          class="shape-container draggable"
+          style="display: none"
+          id="circle2"
+          width="550"
+          height="500"
+        >
+          <svg id="circle" width="550" height="500">
+            <circle
+              id="shapeC"
+              cx="250"
+              cy="250"
+              r="40"
+              fill="red"
+              stroke="black"
+            />
+          </svg>
+        </div>
+        <div
+          class="shape-container draggable"
+          style="display: none"
+          id="triangle2"
+        >
+          <svg id="triangle" width="550" height="500">
+            <polygon
+              id="shapeP"
+              points="50,10 10,90 90,90"
+              fill="purple"
+              stroke="black"
+            />
+          </svg>
+        </div>
+        <div
+          class="shape-container draggable"
+          style="display: none"
+          id="ellipse2"
+        >
+          <svg id="ellipse" width="550" height="500">
+            <ellipse
+              id="shapeE"
+              cx="250"
+              cy="250"
+              rx="40"
+              ry="20"
+              fill="darkorange"
+              stroke="black"
+            />
+          </svg>
+        </div>
+
+        <!-- Backdrop for color picker -->
+        <div class="backdrop"></div>
+        <!-- Color Picker -->
+        <input type="color" class="color-picker" />
+      </div>
+    </div>
+
+    <script src="EnhancedScript.js"></script>
+    <script>
+      let isElementVisible = false;
+      let selectedId;
+      let blink = true;
+      function blinker() {}
+      let defColor;
+      const getValue = () => {
+        const selectedOption = document.querySelector(
+          'input[name="k"]:checked'
+        );
+
+        if (selectedOption) {
+          const selectedValue = selectedOption.value;
+          if (selectedValue === "true") {
+            console.log("Selected value:", selectedValue);
+            blink = true;
+            blinker();
+          } else {
+            blink = false;
+          }
+        }
+      };
+      document.getElementById("height").addEventListener("input", () => {
+        console.log(document.getElementById("height").value);
+        document
+          .getElementById("shapeR")
+          .setAttribute("height", document.getElementById("height").value);
+      });
+      document.getElementById("width").addEventListener("input", () => {
+        console.log(document.getElementById("width").value);
+        document
+          .getElementById("shapeR")
+          .setAttribute("width", document.getElementById("width").value);
+      });
+      document.getElementById("radius").addEventListener("input", () => {
+        console.log(document.getElementById("radius").value);
+        document
+          .getElementById("shapeC")
+          .setAttribute("r", document.getElementById("radius").value);
+      });
+      document.getElementById("cx").addEventListener("blur", () => {
+        console.log(document.getElementById("cx").value);
+        document
+          .getElementById("shapeP")
+          .setAttribute("points", document.getElementById("cx").value);
+      });
+      document.getElementById("cy").addEventListener("input", () => {
+        console.log(document.getElementById("cy").value);
+        document
+          .getElementById("shapeE")
+          .setAttribute("rx", document.getElementById("cy").value);
+      });
+      function getSelectedId() {
+        document.getElementById("form1").style.display = "block";
+        selectedId = document.querySelector('input[name="f"]:checked');
+        if (selectedId) {
+          console.log("Selected Id:", selectedId.id);
+        } else {
+          console.log("No language selected");
+        }
+        if (selectedId.id === "rect") {
+          let show = true;
+          if (show) {
+            document.getElementById("header").innerText = "Rectangle Details";
+            document.getElementById("rect-details").style.visibility =
+              "visible";
+            document.getElementById("square-details").style.visibility =
+              "hidden";
+            document.getElementById("circle-details").style.visibility =
+              "hidden";
+            document.getElementById("triangle-details").style.visibility =
+              "hidden";
+            document.getElementById("rect2").style.display = "block";
+            document.getElementById("ellipse2").style.display = "none";
+            document.getElementById("circle2").style.display = "none";
+            document.getElementById("triangle2").style.display = "none";
+          }
+          console.log(show);
+        }
+        if (selectedId.id === "triangle") {
+          let tshow = true;
+          if (tshow) {
+            document.getElementById("header").innerText = "Triangle Details";
+            document.getElementById("rect-details").style.visibility = "hidden";
+            document.getElementById("square-details").style.visibility =
+              "hidden";
+            document.getElementById("circle-details").style.visibility =
+              "hidden";
+            document.getElementById("triangle-details").style.visibility =
+              "visible";
+            document.getElementById("rect2").style.display = "none";
+            document.getElementById("ellipse2").style.display = "none";
+            document.getElementById("circle2").style.display = "none";
+            document.getElementById("triangle2").style.display = "block";
+          }
+        }
+        if (selectedId.id === "circle") {
+          let cshow = true;
+          if (cshow) {
+            document.getElementById("header").innerText = "Circle Details";
+            document.getElementById("rect-details").style.visibility = "hidden";
+            document.getElementById("square-details").style.visibility =
+              "hidden";
+            document.getElementById("circle-details").style.visibility =
+              "visible";
+            document.getElementById("triangle-details").style.visibility =
+              "hidden";
+            document.getElementById("rect2").style.display = "none";
+            document.getElementById("ellipse2").style.display = "none";
+            document.getElementById("circle2").style.display = "block";
+            document.getElementById("triangle2").style.display = "none";
+          }
+        }
+        if (selectedId.id === "ellipse") {
+          let sshow = true;
+          if (sshow) {
+            document.getElementById("header").innerText = "Ellipse Details";
+            document.getElementById("rect-details").style.visibility = "hidden";
+            document.getElementById("square-details").style.visibility =
+              "visible";
+            document.getElementById("circle-details").style.visibility =
+              "hidden";
+            document.getElementById("triangle-details").style.visibility =
+              "hidden";
+            document.getElementById("rect2").style.display = "none";
+            document.getElementById("ellipse2").style.display = "block";
+            document.getElementById("circle2").style.display = "none";
+            document.getElementById("triangle2").style.display = "none";
+          }
+        }
+        if (blink === true) {
+          let shapeId;
+          blinker = function () {
+            console.log("blinker clicked!");
+            a = setInterval(() => {
+              if (selectedId.id === "circle") shapeId = "shapeC";
+              if (selectedId.id === "square") shapeId = "shapeE";
+              if (selectedId.id === "rect") shapeId = "shapeR";
+              if (selectedId.id === "triangle") shapeId = "shapeP";
+              document.getElementById(shapeId).setAttribute("fill", "red");
+            }, 300);
+            b = setInterval(() => {
+              document.getElementById(shapeId).setAttribute("fill", "blue");
+            }, 500);
+            c = setInterval(() => {
+              document.getElementById(shapeId).setAttribute("fill", "green");
+            }, 700);
+            setTimeout(() => {
+              clearInterval(a);
+              clearInterval(b);
+              clearInterval(c);
+              // document.getElementById(id).setAttribute("fill", defColor);
+            }, 5000);
+          };
+        }
+      }
+      console.log(selectedId);
+    </script>
+  </body>
+</html>

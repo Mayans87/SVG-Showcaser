@@ -1,0 +1,228 @@
+/* Resetting default margin and padding */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  background: url("https://cdn.wallpapersafari.com/25/83/Wwealj.jpg");
+}
+
+/* Main container styles */
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+}
+/* Form styles */
+.form1,
+.form2 {
+  border: 10px solid black;
+  width: 45%;
+  min-height: 400px;
+  background-color: #fff;
+  border-radius: 10px;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+  padding: 20px;
+  margin: 0 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Header styles */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid white;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+.shape-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px auto;
+  width: 80%;
+}
+.form1,
+.form2 {
+  display: none;
+}
+.shape-buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 2px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#applyButton:hover {
+  cursor: default;
+  background-color: blueviolet;
+  color: white;
+}
+#applyButton {
+  font-weight: bolder;
+  color: white;
+  border-radius: 10px;
+  font-size: x-large;
+  background-color: deepskyblue;
+}
+
+.rectangle {
+  background-color: #ccc;
+}
+
+.ellipse {
+  background-color: #ccc;
+}
+
+.triangle {
+  background-color: #ccc;
+}
+
+.circle {
+  background-color: #ccc;
+}
+
+/* Title styles */
+.Title {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+/* Shape details styles */
+.shape {
+  margin-bottom: 20px;
+}
+
+/* Input label styles */
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Shape container styles */
+.shape-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+  height: 100%;
+}
+
+/* SVG styles */
+svg {
+  border-radius: 5px;
+  margin-bottom: 10px;
+  margin-left: 15px;
+}
+#showButton {
+  border-radius: 15px;
+  font-weight: bold;
+  background-color: deepskyblue;
+  padding: 10px;
+  display: none;
+}
+#showButton2 {
+  border-radius: 15px;
+  font-weight: bold;
+  background-color: deepskyblue;
+  padding: 10px;
+  display: none;
+}
+
+/* Backdrop styles */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+
+/* Color picker styles */
+.color-picker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+/* Form input styles */
+input[type="radio"],
+input[type="number"],
+input[type="text"],
+input[type="color"] {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+/* Label styles */
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Radio button styles */
+input[type="radio"] {
+  margin-right: 5px;
+}
+
+/* Buttons styles */
+input[type="radio"] + label {
+  font-weight: normal;
+}
+
+/* Buttons styles */
+input[type="radio"] + label {
+  font-weight: normal;
+}
+
+/* Form 1 and Form 2 specific styles */
+.form1,
+.form2 {
+  width: 45%;
+  min-height: 400px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 0 10px;
+}
+
+/* Additional styles specific to certain form sections */
+.form1 {
+  color: white;
+  font-weight: bolder;
+}
+
+/* Visible styles for form sections based on selection */
+/* .rect-details[style="visibility: visible"],
+.square-details[style="visibility: visible"],
+.circle-details[style="visibility: visible"],
+.triangle-details[style="visibility: visible"] {
+  display: block;
+} */
+.draggable {
+  position: absolute;
+  cursor: grab;
+}
+.form1{
+  background: url("https://wallpaperset.com/w/full/8/7/8/461127.jpg") center no-repeat;
+  background-size: cover;
+}
+.form2{
+  background: url("https://wallpaperset.com/w/full/5/7/d/461128.jpg") center no-repeat;
+  background-size: cover;
+  color: white;
+  min-height: 420px;
+}
